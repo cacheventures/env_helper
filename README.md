@@ -29,6 +29,8 @@ ENV['db_name'] = 'foobar'
 ENV['DB_PASSWORD'] = 'password'
 ENV['max_pool_size'] = '25'
 ENV['ssl_enabled'] = 'true'
+ENV['db_hosts'] = 'db1.foobar.com db2.foobar.com db3.foobar.com'
+ENV['private_keys'] = 'key1:abcdef key2:fedcba'
 
 ENVHelper.get('db_name')
 "foobar"
@@ -47,6 +49,30 @@ true
 
 ENVHelper.bool('sharding_enabled', false)
 false
+
+ENVHelper.array('db_hosts')
+['db1.foobar.com', 'db2.foobar.com', 'db3.foobar.com']
+
+ENVHelper.hash('private_keys')
+{ 'key1' => 'abcdef', 'key2' => 'fedcba' }
+```
+
+## Notes
+All methods accept a default value as a second parameter and that parameter
+should be the type being returned. For example if you call
+`ENVHelper.int('max_pool_size', 25)` the second parameter is an Integer.
+
+## Configuration
+
+```ruby
+# string used to split the environment variable to make the array
+ENVHelper.array_seperator = ' ' # default is a space
+
+# string used to split the hash key value groups in the hash
+ENVHelper.hash_key_seperator = ' ' # default is a space
+
+# string used to split the key from values in the hash
+ENVHelper.hash_key_value_seperator = ':' # default is a colon
 ```
 
 ## Development
