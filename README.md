@@ -1,4 +1,7 @@
-# ENVHelper
+# ENVHelper 
+By [Cache Ventures](https://cacheventures.com)
+
+[![Build Status](https://travis-ci.org/cacheventures/env_helper.svg?branch=master)](https://travis-ci.org/cacheventures/env_helper)
 
 ENVHelper makes it easy to manage your environment variables when you have
 different types like Booleans or Integers without having to check and convert.
