@@ -77,9 +77,9 @@ describe ENVHelper do
       ev.must_equal expected_result
     end
 
-    it 'will use the configured array seperator' do
+    it 'will use the configured array separator' do
       ENV['db_hosts'] = 'db1.foobar.com\ndb2.foobar.com\ndb3.foobar.com'
-      ENVHelper.array_seperator = '\n'
+      ENVHelper.array_separator = '\n'
       ev = ENVHelper.array('db_hosts')
       ev.must_be_kind_of Array
       ev.must_equal expected_result
@@ -109,19 +109,19 @@ describe ENVHelper do
       ev.must_equal(expected_result)
     end
 
-    it 'will use the configured hash key group seperator' do
+    it 'will use the configured hash key group separator' do
       ENV['private_keys'] = 'key1:abcdef\nkey2:fedcba'
       clear_config
-      ENVHelper.hash_key_seperator = '\n'
+      ENVHelper.hash_key_separator = '\n'
       ev = ENVHelper.hash('private_keys')
       ev.must_be_kind_of Hash
       ev.must_equal(expected_result)
     end
 
-    it 'will use the configured key value seperator' do
+    it 'will use the configured key value separator' do
       ENV['private_keys'] = 'key1|abcdef key2|fedcba'
       clear_config
-      ENVHelper.hash_key_value_seperator = '|'
+      ENVHelper.hash_key_value_separator = '|'
       ev = ENVHelper.hash('private_keys')
       ev.must_be_kind_of Hash
       ev.must_equal(expected_result)
@@ -142,47 +142,11 @@ describe ENVHelper do
 
   end
 
-  describe '#array_seperator' do
-    it 'returns the default array seperator' do
-      clear_config
-      ENVHelper.array_seperator.must_equal ' '
-    end
-
-    it 'returns the configured array seperator' do
-      ENVHelper.array_seperator = '\n'
-      ENVHelper.array_seperator.must_equal '\n'
-    end
-  end
-
-  describe '#hash_key_seperator' do
-    it 'returns the default hash key seperator' do
-      clear_config
-      ENVHelper.hash_key_seperator.must_equal ' '
-    end
-
-    it 'returns the configured hash key seperator' do
-      ENVHelper.hash_key_seperator = '\n'
-      ENVHelper.hash_key_seperator.must_equal '\n'
-    end
-  end
-
-  describe '#hash_key_value_seperator' do
-    it 'returns the default hash key value seperator' do
-      clear_config
-      ENVHelper.hash_key_value_seperator.must_equal ':'
-    end
-
-    it 'returns the configured hash key value seperator' do
-      ENVHelper.hash_key_value_seperator = '|'
-      ENVHelper.hash_key_value_seperator.must_equal '|'
-    end
-  end
-
   # used to clear any config settings between tests
   def clear_config
-    ENVHelper.array_seperator = nil
-    ENVHelper.hash_key_seperator = nil
-    ENVHelper.hash_key_value_seperator = nil
+    ENVHelper.array_separator = nil
+    ENVHelper.hash_key_separator = nil
+    ENVHelper.hash_key_value_separator = nil
   end
 
 end

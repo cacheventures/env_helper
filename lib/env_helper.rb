@@ -2,9 +2,9 @@ require "env_helper/version"
 
 module ENVHelper
   class << self
-    attr_accessor :array_seperator
-    attr_accessor :hash_key_seperator
-    attr_accessor :hash_key_value_seperator
+    attr_accessor :array_separator
+    attr_accessor :hash_key_separator
+    attr_accessor :hash_key_value_separator
   end
 
   def self.get(name, default = nil)
@@ -29,31 +29,17 @@ module ENVHelper
     var = get(name, default)
     return [] if var.nil?
     return var if var.is_a? Array
-    var.split(array_seperator)
+    var.split(@array_separator || ' ')
   end
 
   def self.hash(name, default = nil)
     var = get(name, default)
     return {} if var.nil?
     return var if var.is_a? Hash
-    hash_array = var.split(hash_key_seperator)
+    hash_array = var.split(@hash_key_separator || ' ')
     hash_array.map do |kv|
-      kv.split(hash_key_value_seperator)
+      kv.split(@hash_key_value_separator || ':')
     end.to_h
-  end
-
-  private
-
-  def self.array_seperator
-    @array_seperator || ' '
-  end
-
-  def self.hash_key_seperator
-    @hash_key_seperator || ' '
-  end
-
-  def self.hash_key_value_seperator
-    @hash_key_value_seperator || ':'
   end
 
 end
