@@ -6,6 +6,12 @@ describe ENVHelper do
     ENVHelper::VERSION.wont_be_nil
   end
 
+  before do
+    ENVHelper.array_separator = nil
+    ENVHelper.hash_key_separator = nil
+    ENVHelper.hash_key_value_separator = nil
+  end
+
   describe '#get' do
 
     it 'will return the environment variable' do
@@ -32,17 +38,20 @@ describe ENVHelper do
     it 'will return the environment variable as an integer' do
       ENV['socket_timeout'] = '30'
       ev = ENVHelper.int('socket_timeout')
-      ev.must_be_kind_of Integer
+      ev.must_be_kind_of Fixnum
       ev.must_equal 30
     end
 
     it 'will return the default value if no environment variable exists' do
-      ENV['max_pool_size'] = '25'
-      ENVHelper.int('max_pool_size', 25).must_equal 25
+      ev = ENVHelper.int('max_pool_size', 25)
+      ev.must_be_kind_of Fixnum
+      ev.must_equal 25
     end
 
     it 'will return 0 if no environment variable exists and no default set' do
-      ENVHelper.int('min_pool_size').must_equal 0
+      ev = ENVHelper.int('min_pool_size')
+      ev.must_be_kind_of Fixnum
+      ev.must_equal 0
     end
 
   end
@@ -51,9 +60,7 @@ describe ENVHelper do
 
     it 'will return the environment variable as a boolean' do
       ENV['ssl_enabled'] = 'true'
-      ev = ENVHelper.bool('ssl_enabled')
-      ev.must_be_kind_of(TrueClass || FalseClass)
-      ev.must_equal true
+      ENVHelper.bool('ssl_enabled').must_equal true
     end
 
     it 'will return the default value if no environment variable exists' do
@@ -67,28 +74,21 @@ describe ENVHelper do
   end
 
   describe '#array' do
-    expected_result = %w(db1.foobar.com db2.foobar.com db3.foobar.com)
+    expected = %w(db1.foobar.com db2.foobar.com db3.foobar.com)
 
     it 'will return the environment variable as an array' do
       ENV['db_hosts'] = 'db1.foobar.com db2.foobar.com db3.foobar.com'
-      clear_config
-      ev = ENVHelper.array('db_hosts')
-      ev.must_be_kind_of Array
-      ev.must_equal expected_result
+      ENVHelper.array('db_hosts').must_equal expected
     end
 
     it 'will use the configured array separator' do
       ENV['db_hosts'] = 'db1.foobar.com\ndb2.foobar.com\ndb3.foobar.com'
       ENVHelper.array_separator = '\n'
-      ev = ENVHelper.array('db_hosts')
-      ev.must_be_kind_of Array
-      ev.must_equal expected_result
+      ENVHelper.array('db_hosts').must_equal expected
     end
 
     it 'will return the default value if no environment variable exists' do
-      ev = ENVHelper.array('db_hostnames', expected_result)
-      ev.must_be_kind_of Array
-      ev.must_equal expected_result
+      ENVHelper.array('db_hostnames', expected).must_equal expected
     end
 
     it 'will return an empty array if no environment variable exists and no default set' do
@@ -99,39 +99,27 @@ describe ENVHelper do
   end
 
   describe '#hash' do
-    expected_result = { 'key1' => 'abcdef', 'key2' => 'fedcba' }
+    expected = { 'key1' => 'abcdef', 'key2' => 'fedcba' }
 
     it 'will return the environment variable as a hash' do
       ENV['private_keys'] = 'key1:abcdef key2:fedcba'
-      clear_config
-      ev = ENVHelper.hash('private_keys')
-      ev.must_be_kind_of Hash
-      ev.must_equal(expected_result)
+      ENVHelper.hash('private_keys').must_equal(expected)
     end
 
     it 'will use the configured hash key group separator' do
       ENV['private_keys'] = 'key1:abcdef\nkey2:fedcba'
-      clear_config
       ENVHelper.hash_key_separator = '\n'
-      ev = ENVHelper.hash('private_keys')
-      ev.must_be_kind_of Hash
-      ev.must_equal(expected_result)
+      ENVHelper.hash('private_keys').must_equal(expected)
     end
 
     it 'will use the configured key value separator' do
       ENV['private_keys'] = 'key1|abcdef key2|fedcba'
-      clear_config
       ENVHelper.hash_key_value_separator = '|'
-      ev = ENVHelper.hash('private_keys')
-      ev.must_be_kind_of Hash
-      ev.must_equal(expected_result)
+      ENVHelper.hash('private_keys').must_equal(expected)
     end
 
     it 'will return the default value if no environment variable exists' do
-      clear_config
-      ev = ENVHelper.hash('public_keys', expected_result)
-      ev.must_be_kind_of Hash
-      ev.must_equal(expected_result)
+      ENVHelper.hash('public_keys', expected).must_equal(expected)
     end
 
     it 'will return an empty hash if no environment variable exists and no default is set' do
@@ -140,13 +128,6 @@ describe ENVHelper do
       ev.must_be_empty
     end
 
-  end
-
-  # used to clear any config settings between tests
-  def clear_config
-    ENVHelper.array_separator = nil
-    ENVHelper.hash_key_separator = nil
-    ENVHelper.hash_key_value_separator = nil
   end
 
 end
