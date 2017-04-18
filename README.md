@@ -1,4 +1,7 @@
-# ENVHelper
+# ENVHelper 
+By [Cache Ventures](https://cacheventures.com)
+
+[![Build Status](https://travis-ci.org/cacheventures/env_helper.svg?branch=master)](https://travis-ci.org/cacheventures/env_helper)
 
 ENVHelper makes it easy to manage your environment variables when you have
 different types like Booleans or Integers without having to check and convert.
@@ -83,4 +86,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/env_helper.
+Bug reports and pull requests are welcome on GitHub at https://github.com/cacheventures/env_helper.
