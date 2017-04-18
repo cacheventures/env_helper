@@ -29,7 +29,7 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^exe/}) { |f| File.basename(f) }
   gem.require_paths = ["lib"]
 
-  gem.add_development_dependency 'bundler', '~> 1.13'
+  gem.add_development_dependency 'bundler'
   gem.add_development_dependency 'rake', '~> 10.0'
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'awesome_print'
