@@ -9,8 +9,10 @@ Gem::Specification.new do |gem|
   gem.authors       = ['Jarrett Lusso']
   gem.email         = ['jarrett@cacheventures.com']
 
-  gem.summary       = %q{An easy way to manage environment variables with types besides plain strings.}
-  gem.description   = %q{An easy way to manage environment variables with types besides plain strings.}
+  gem.summary       = 'An easy way to manage environment variables with types '\
+                      'besides plain strings.'
+  gem.description   = 'An easy way to manage environment variables with types '\
+                      'besides plain strings.'
   gem.homepage      = 'https://cacheventures.com'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
