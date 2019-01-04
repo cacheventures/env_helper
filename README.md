@@ -33,6 +33,7 @@ ENV['DB_PASSWORD'] = 'password'
 ENV['max_pool_size'] = '25'
 ENV['ssl_enabled'] = 'true'
 ENV['db_hosts'] = 'db1.foobar.com db2.foobar.com db3.foobar.com'
+ENV['favorite_people'] = 'tom jones,joe smith,jebediah mason'
 ENV['private_keys'] = 'key1:abcdef key2:fedcba'
 
 ENVHelper.get('db_name')
@@ -55,6 +56,9 @@ false
 
 ENVHelper.array('db_hosts')
 ['db1.foobar.com', 'db2.foobar.com', 'db3.foobar.com']
+
+ENVHelper.array('favorite_people', nil, ',')
+['tom jones', 'joe smith', 'jebediah mason']
 
 ENVHelper.hash('private_keys')
 { 'key1' => 'abcdef', 'key2' => 'fedcba' }

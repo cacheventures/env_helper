@@ -25,11 +25,12 @@ module ENVHelper
     end
   end
 
-  def self.array(name, default = nil)
+  def self.array(name, default = nil, array_sep = nil)
     var = get(name, default)
     return [] if var.nil?
     return var if var.is_a? Array
-    var.split(@array_separator || ' ')
+    array_separator = array_sep || @array_separator || ' '
+    var.split(array_separator)
   end
 
   def self.hash(name, default = nil)

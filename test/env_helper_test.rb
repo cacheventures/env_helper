@@ -38,19 +38,19 @@ describe ENVHelper do
     it 'will return the environment variable as an integer' do
       ENV['socket_timeout'] = '30'
       ev = ENVHelper.int('socket_timeout')
-      ev.must_be_kind_of Fixnum
+      ev.must_be_kind_of Integer
       ev.must_equal 30
     end
 
     it 'will return the default value if no environment variable exists' do
       ev = ENVHelper.int('max_pool_size', 25)
-      ev.must_be_kind_of Fixnum
+      ev.must_be_kind_of Integer
       ev.must_equal 25
     end
 
     it 'will return 0 if no environment variable exists and no default set' do
       ev = ENVHelper.int('min_pool_size')
-      ev.must_be_kind_of Fixnum
+      ev.must_be_kind_of Integer
       ev.must_equal 0
     end
 
@@ -84,6 +84,12 @@ describe ENVHelper do
     it 'will use the configured array separator' do
       ENV['db_hosts'] = 'db1.foobar.com\ndb2.foobar.com\ndb3.foobar.com'
       ENVHelper.array_separator = '\n'
+      ENVHelper.array('db_hosts').must_equal expected
+    end
+
+    it 'will use a supplied array separator argument' do
+      ENV['db_hosts'] = 'db1.foobar.com,db2.foobar.com,db3.foobar.com'
+      ENVHelper.array_separator = ','
       ENVHelper.array('db_hosts').must_equal expected
     end
 
