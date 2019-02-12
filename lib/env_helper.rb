@@ -18,6 +18,10 @@ module ENVHelper
     get(name, default).to_i
   end
 
+  def self.float(name, default = nil)
+    get(name, default).to_f
+  end
+
   def self.bool(name, default = nil)
     case get(name, default).to_s
     when 'true'

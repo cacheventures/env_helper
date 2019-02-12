@@ -62,6 +62,29 @@ describe ENVHelper do
 
   end
 
+  describe '#float' do
+
+    it 'will return the environment variable as a float' do
+      ENV['phi'] = '1.61803'
+      ev = ENVHelper.float('phi')
+      ev.must_be_kind_of Float
+      ev.must_equal 1.61803
+    end
+
+    it 'will return the default value if no environment variable exists' do
+      ev = ENVHelper.float('bernstein', 0.28016)
+      ev.must_be_kind_of Float
+      ev.must_equal 0.28016
+    end
+
+    it 'will return 0.0 if no environment variable exists and no default set' do
+      ev = ENVHelper.float('pi')
+      ev.must_be_kind_of Float
+      ev.must_equal 0.0
+    end
+
+  end
+
   describe '#bool' do
 
     it 'will return the environment variable as a boolean' do

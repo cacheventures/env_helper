@@ -31,6 +31,7 @@ Or install it yourself as:
 ENV['db_name'] = 'foobar'
 ENV['DB_PASSWORD'] = 'password'
 ENV['max_pool_size'] = '25'
+ENV['phi'] = '1.61803'
 ENV['ssl_enabled'] = 'true'
 ENV['db_hosts'] = 'db1.foobar.com db2.foobar.com db3.foobar.com'
 ENV['favorite_people'] = 'tom jones,joe smith,jebediah mason'
@@ -47,6 +48,12 @@ ENVHelper.int('max_pool_size')
 
 ENVHelper.int('socket_timeout', 30)
 30
+
+ENVHelper.float('phi')
+1.61803
+
+ENVHelper.float('pi', 3.141592)
+3.141592
 
 ENVHelper.bool('ssl_enabled')
 true
