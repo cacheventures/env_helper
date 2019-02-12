@@ -5,10 +5,12 @@ module ENVHelper
     attr_accessor :array_separator
     attr_accessor :hash_key_separator
     attr_accessor :hash_key_value_separator
+    attr_accessor :raise_errors
   end
 
   def self.get(name, default = nil)
     var = ENV[name] || ENV[name.upcase]
+    fail NotFoundError, "ENV['#{name}'] not found" if @raise_errors && var.nil?
     var.nil? ? default : var
   end
 
@@ -43,4 +45,5 @@ module ENVHelper
     end.to_h
   end
 
+  class NotFoundError < ::StandardError; end;
 end

@@ -10,6 +10,7 @@ describe ENVHelper do
     ENVHelper.array_separator = nil
     ENVHelper.hash_key_separator = nil
     ENVHelper.hash_key_value_separator = nil
+    ENVHelper.raise_errors = nil
   end
 
   describe '#get' do
@@ -30,6 +31,11 @@ describe ENVHelper do
 
     it 'will return nil if no environment variable exists and no default set' do
       ENVHelper.get('db_hostname').must_be_nil
+    end
+
+    it 'will throw an error for a missing variable when raise_errors is enabled' do
+      ENVHelper.raise_errors = true
+      -> { ENVHelper.get('does_not_exist') }.must_raise ENVHelper::NotFoundError
     end
   end
 

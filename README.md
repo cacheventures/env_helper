@@ -80,6 +80,9 @@ ENVHelper.hash_key_seperator = ' ' # default is a space
 
 # string used to split the key from values in the hash
 ENVHelper.hash_key_value_seperator = ':' # default is a colon
+
+# whether or not to raise errors for empty environment variables
+ENVHelper.raise_errors = true # defaults to false
 ```
 
 ## Development
