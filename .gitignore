@@ -6,4 +6,9 @@
 /doc/
 /pkg/
 /spec/reports/
-/tmp/
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/keys
+.tags*
